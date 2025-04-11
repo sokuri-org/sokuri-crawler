@@ -29,6 +29,5 @@ export async function crawlReviewImagesByUrl(productUrl) {
     throw new Error(ERROR_UNSUPPORTED_URL);
   } catch (error) {
     console.error(`크롤링 실패: ${error.message}`);
-    throw error;
   }
 }
