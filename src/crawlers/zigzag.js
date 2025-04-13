@@ -96,6 +96,12 @@ export async function crawlZigzagReviewImages(productUrl, outputPath = "data/rev
     console.log(
       `🖼️ 지그재그 후기 이미지 ${limited.length}장 크롤링 및 서버 전송 완료 (${productId})`
     );
+
+    return {
+      success: true,
+      product_id: productId,
+      imageCount: limited.length,
+    };
   } catch (err) {
     console.error(`🥲 지그재그 크롤링 실패: ${err.message}`);
     throw err;
