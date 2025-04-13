@@ -106,6 +106,12 @@ export async function crawlMusinsaReviewImages(productUrl, outputPath = OUTPUT_P
     console.log(
       `🖼️ 무신사 후기 이미지 ${imageUrls.length}장 다운로드 및 서버 전송 완료 (${productId})`
     );
+
+    return {
+      success: true,
+      product_id: productId,
+      imageCount: imageUrls.length,
+    };
   } catch (err) {
     console.error(`🥲 무신사 크롤링 실패: ${err.message}`);
     throw err;
