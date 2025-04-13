@@ -1,7 +1,8 @@
-import puppeteer from "puppeteer";
 import fs from "fs/promises";
 import path from "path";
+import puppeteer from "puppeteer";
 import { downloadImages } from "../utils/downloadImages.js";
+import { sendImagesToServer } from "../api/images.js";
 import { SCROLL_DELAY_MS, IMAGE_LIMIT, JSON_INDENT } from "../constants/crawling.js";
 
 const OUTPUT_PATH = "data/review-images.json";
@@ -96,7 +97,15 @@ export async function crawlMusinsaReviewImages(productUrl, outputPath = OUTPUT_P
     await saveImageUrlsToJson(outputPath, imageUrls);
     await downloadImages(productId, imageUrls);
 
-    console.log(`🖼️ 무신사 후기 이미지 ${imageUrls.length}장 다운로드 완료 (${productId})`);
+    await sendImagesToServer({
+      product_id: productId,
+      source: "musinsa",
+      image_urls: imageUrls,
+    });
+
+    console.log(
+      `🖼️ 무신사 후기 이미지 ${imageUrls.length}장 다운로드 및 서버 전송 완료 (${productId})`
+    );
   } catch (err) {
     console.error(`🥲 무신사 크롤링 실패: ${err.message}`);
     throw err;
