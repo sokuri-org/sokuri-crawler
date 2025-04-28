@@ -2,7 +2,6 @@ import fs from "fs/promises";
 import path from "path";
 import puppeteer from "puppeteer";
 import { downloadImages } from "../utils/downloadImages.js";
-import { sendImagesToServer } from "../api/images.js";
 import {
   SCROLL_ITERATIONS,
   SCROLL_DELAY_MS,
@@ -87,15 +86,7 @@ export async function crawlZigzagReviewImages(productUrl, outputPath = "data/rev
     await saveImageUrlsToJson(outputPath, limited);
     await downloadImages(productId, limited);
 
-    await sendImagesToServer({
-      product_id: productId,
-      source: "zigzag",
-      image_urls: limited,
-    });
-
-    console.log(
-      `🖼️ 지그재그 후기 이미지 ${limited.length}장 크롤링 및 서버 전송 완료 (${productId})`
-    );
+    console.log(`🖼️ 지그재그 후기 이미지 ${limited.length}장 크롤링 완료 (${productId})`);
 
     return {
       success: true,
