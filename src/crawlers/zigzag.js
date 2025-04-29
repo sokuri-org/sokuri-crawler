@@ -2,9 +2,21 @@ import fs from "fs/promises";
 import path from "path";
 import puppeteer from "puppeteer";
 import { downloadImages } from "../utils/downloadImages.js";
+import { guessCategoryFromTitle } from "../utils/guessCategory.js";
 import { config } from "../../config.js";
 
 const REVIEW_IMAGE_SELECTOR = "div.css-s01evr.efs1gt61 img";
+
+async function extractTitleFromZigzag(page, productPageUrl) {
+  await page.goto(productPageUrl, { waitUntil: "networkidle2" });
+
+  const title = await page.evaluate(() => {
+    const titleEl = document.querySelector("h1.BODY_15.REGULAR");
+    return titleEl ? titleEl.innerText.trim() : null;
+  });
+
+  return title || "상품명 없음";
+}
 
 async function resolveRedirectAndExtractProductInfo(page, inputUrl) {
   let finalUrl = inputUrl;
@@ -26,8 +38,9 @@ async function resolveRedirectAndExtractProductInfo(page, inputUrl) {
 
   const productId = match[1];
   const reviewUrl = `https://zigzag.kr/review/list/${productId}`;
+  const productPageUrl = `https://zigzag.kr/catalog/products/${productId}`;
 
-  return { productId, reviewUrl };
+  return { productId, reviewUrl, productPageUrl };
 }
 
 async function scrollToLoadAllReviews(page) {
@@ -66,7 +79,10 @@ export async function crawlZigzagReviewImages(productUrl, outputPath = "data/rev
   const page = await browser.newPage();
 
   try {
-    const { productId, reviewUrl } = await resolveRedirectAndExtractProductInfo(page, productUrl);
+    const { productId, reviewUrl, productPageUrl } = await resolveRedirectAndExtractProductInfo(
+      page,
+      productUrl
+    );
 
     await page.goto(reviewUrl, { waitUntil: "networkidle2" });
     await scrollToLoadAllReviews(page);
@@ -83,10 +99,15 @@ export async function crawlZigzagReviewImages(productUrl, outputPath = "data/rev
 
     console.log(`🖼️ 지그재그 후기 이미지 ${limited.length}장 크롤링 완료 (${productId})`);
 
+    const title = await extractTitleFromZigzag(page, productPageUrl);
+    const category = guessCategoryFromTitle(title);
+
     return {
       success: true,
       product_id: productId,
+      category: category,
       imageCount: limited.length,
+      images: limited,
     };
   } catch (err) {
     console.error(`🥲 지그재그 크롤링 실패: ${err.message}`);

@@ -2,10 +2,26 @@ import fs from "fs/promises";
 import path from "path";
 import puppeteer from "puppeteer";
 import { downloadImages } from "../utils/downloadImages.js";
+import { guessCategoryFromTitle } from "../utils/guessCategory.js";
 import { config } from "../../config.js";
 
 const OUTPUT_PATH = "data/review-images.json";
 const MAX_REVIEW_INDEX = 100;
+
+async function extractTitleFromMusinsa(page, productId) {
+  const productUrl = `https://www.musinsa.com/products/${productId}`;
+  await page.goto(productUrl, { waitUntil: "networkidle2" });
+
+  const title = await page.evaluate(() => {
+    const container = document.querySelector("div.sc-1omefes-0");
+    if (!container) return null;
+
+    const titleEl = container.querySelector("span.text-title_18px_med");
+    return titleEl ? titleEl.innerText.trim() : null;
+  });
+
+  return title || "상품명 없음";
+}
 
 async function resolveRedirectAndExtractProductId(page, inputUrl) {
   let finalUrl = inputUrl;
@@ -93,6 +109,9 @@ export async function crawlMusinsaReviewImages(productUrl, outputPath = OUTPUT_P
       throw new Error("🥲 후기 이미지가 존재하지 않습니다");
     }
 
+    const title = await extractTitleFromMusinsa(page, productId);
+    const category = guessCategoryFromTitle(title);
+
     await saveImageUrlsToJson(outputPath, imageUrls);
     await downloadImages(productId, imageUrls);
 
@@ -101,7 +120,9 @@ export async function crawlMusinsaReviewImages(productUrl, outputPath = OUTPUT_P
     return {
       success: true,
       product_id: productId,
+      category: category,
       imageCount: imageUrls.length,
+      images: imageUrls,
     };
   } catch (err) {
     console.error(`🥲 무신사 크롤링 실패: ${err.message}`);
