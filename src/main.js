@@ -1,6 +1,14 @@
+import { config } from "../config.js";
+import cors from "cors";
+import express from "express";
 import { crawlMusinsaReviewImages } from "./crawlers/musinsa.js";
 import { crawlZigzagReviewImages } from "./crawlers/zigzag.js";
 
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const DEFAULT_PORT_NUMBER = config.PORT;
 const SUPPORTED_SITES = {
   MUSINSA: ["musinsa.com", "musinsaapp.page.link"],
   ZIGZAG: ["zigzag.kr", "s.zigzag.kr"],
@@ -32,3 +40,8 @@ export async function crawlReviewImagesByUrl(productUrl) {
     throw error;
   }
 }
+
+const PORT = process.env.PORT || DEFAULT_PORT_NUMBER;
+app.listen(PORT, () => {
+  console.log(`크롤러 서버 실행 중: http://localhost:${PORT}`);
+});
