@@ -2,12 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import puppeteer from "puppeteer";
 import { downloadImages } from "../utils/downloadImages.js";
-import {
-  SCROLL_ITERATIONS,
-  SCROLL_DELAY_MS,
-  IMAGE_LIMIT,
-  JSON_INDENT,
-} from "../constants/crawling.js";
+import { config } from "../../config.js";
 
 const REVIEW_IMAGE_SELECTOR = "div.css-s01evr.efs1gt61 img";
 
@@ -36,9 +31,9 @@ async function resolveRedirectAndExtractProductInfo(page, inputUrl) {
 }
 
 async function scrollToLoadAllReviews(page) {
-  for (let i = 0; i < SCROLL_ITERATIONS; i++) {
+  for (let i = 0; i < config.SCROLL_ITERATIONS; i++) {
     await page.evaluate(() => window.scrollBy(0, window.innerHeight));
-    await new Promise((res) => setTimeout(res, SCROLL_DELAY_MS));
+    await new Promise((res) => setTimeout(res, config.SCROLL_DELAY_MS));
   }
 }
 
@@ -61,7 +56,7 @@ async function extractReviewImageUrls(page) {
 
 async function saveImageUrlsToJson(filePath, urls) {
   await fs.mkdir(path.dirname(filePath), { recursive: true });
-  await fs.writeFile(filePath, JSON.stringify(urls, null, JSON_INDENT));
+  await fs.writeFile(filePath, JSON.stringify(urls, null, config.JSON_INDENT));
 
   console.log(`후기 이미지 URL ${urls.length}개 JSON 저장 완료`);
 }
@@ -77,7 +72,7 @@ export async function crawlZigzagReviewImages(productUrl, outputPath = "data/rev
     await scrollToLoadAllReviews(page);
 
     const imageUrls = await extractReviewImageUrls(page);
-    const limited = imageUrls.slice(0, IMAGE_LIMIT);
+    const limited = imageUrls.slice(0, config.IMAGE_LIMIT);
 
     if (limited.length === 0) {
       throw new Error("🥲 후기 이미지가 존재하지 않습니다");

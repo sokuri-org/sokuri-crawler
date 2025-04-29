@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import puppeteer from "puppeteer";
 import { downloadImages } from "../utils/downloadImages.js";
-import { SCROLL_DELAY_MS, IMAGE_LIMIT, JSON_INDENT } from "../constants/crawling.js";
+import { config } from "../../config.js";
 
 const OUTPUT_PATH = "data/review-images.json";
 const MAX_REVIEW_INDEX = 100;
@@ -58,20 +58,20 @@ async function scrollReviewsUntilImageLimit(page) {
       if (el) el.scrollIntoView({ behavior: "instant", block: "center" });
     }, selector);
 
-    await new Promise((res) => setTimeout(res, SCROLL_DELAY_MS));
+    await new Promise((res) => setTimeout(res, config.SCROLL_DELAY_MS));
 
     const imageUrls = await getLoadedGalleryImages(page);
     imageUrls.forEach((url) => urls.add(url));
 
-    if (urls.size >= IMAGE_LIMIT) break;
+    if (urls.size >= config.IMAGE_LIMIT) break;
   }
 
-  return Array.from(urls).slice(0, IMAGE_LIMIT);
+  return Array.from(urls).slice(0, config.IMAGE_LIMIT);
 }
 
 async function saveImageUrlsToJson(filePath, urls) {
   await fs.mkdir(path.dirname(filePath), { recursive: true });
-  await fs.writeFile(filePath, JSON.stringify(urls, null, JSON_INDENT));
+  await fs.writeFile(filePath, JSON.stringify(urls, null, config.JSON_INDENT));
 
   console.log(`후기 이미지 URL ${urls.length}개 JSON 저장 완료`);
 }
@@ -87,7 +87,7 @@ export async function crawlMusinsaReviewImages(productUrl, outputPath = OUTPUT_P
     await page.goto(reviewPageUrl, { waitUntil: "networkidle2" });
     await page.waitForSelector("[data-index='0']", { timeout: 10000 });
 
-    const imageUrls = await scrollReviewsUntilImageLimit(page, IMAGE_LIMIT);
+    const imageUrls = await scrollReviewsUntilImageLimit(page, config.IMAGE_LIMIT);
 
     if (imageUrls.length === 0) {
       throw new Error("🥲 후기 이미지가 존재하지 않습니다");

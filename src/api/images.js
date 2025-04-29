@@ -1,9 +1,9 @@
 import axios from "axios";
-import { SERVER_API_URL } from "../constants/crawling.js";
+import { config } from "../../config.js";
 
 export async function sendImagesToServer({ product_id, source, image_urls }) {
   try {
-    const response = await axios.post(SERVER_API_URL, {
+    const response = await axios.post(config.SERVER_API_URL, {
       product_id,
       source,
       image_urls,
