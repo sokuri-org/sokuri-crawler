@@ -59,7 +59,9 @@ app.post("/bags/sizes", async (req, res) => {
     }
 
     if (!category) {
-      return res.status(HTTP_INTERNAL_SERVER_ERROR).json({ error: "카테고리 추정에 실패했습니다." });
+      return res
+        .status(HTTP_INTERNAL_SERVER_ERROR)
+        .json({ error: "카테고리 추정에 실패했습니다." });
     }
 
     res.json({ images, product_id, category });
