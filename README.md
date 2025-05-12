@@ -69,9 +69,9 @@
 # Preview
 
 <p align=center>
-<img width=200 alt="sokuri_main" src="https://github.com/user-attachments/assets/f7fbce14-84e7-43c7-a6f4-55c81292e967">
-<img width=200 alt="sokuri_sizeCard" src="https://github.com/user-attachments/assets/b340a579-2fb3-4ae2-85fa-2acb04ddee8a">
-<img width=200 alt="sokuri_preview_editSize" src="https://github.com/user-attachments/assets/16f0c223-b9f3-4b16-8c05-886a3d153f51">
+<img width=200 alt="sokuri_main" src="https://github.com/user-attachments/assets/c72b4d44-3257-4c26-983f-e204726d645b">
+<img width=200 alt="sokuri_sidebar" src="https://github.com/user-attachments/assets/8ec2da3f-0213-4287-8a39-9660a89994d9">
+<img width=200 alt="sokuri_preview_sizeCard" src="https://github.com/user-attachments/assets/1c46f011-e98a-48b9-bd85-5cce8490e589">
 </p>
 
 # Tech stack
@@ -301,7 +301,7 @@ UX 설계는 처음 사용하는 사용자도 기능을 쉽게 이해하고 자�
 ## 1. 메인 화면에서 바로 검색 가능하도록 구현
 
 <p>
-  <img width=300 alt="sokuri_main_readme" src="https://github.com/user-attachments/assets/945a5167-444e-4b49-a0cc-2fae25e833e2">
+  <img width=300 alt="sokuri_main_readme" src="https://github.com/user-attachments/assets/7a4b087c-4bbd-41a9-9ef9-c78f3dfd63e6">
 </p>
 
 - 사용자는 메인 화면에 쇼핑몰 상품 URL을 입력하면, 후기 이미지를 자동으로 수집하고 분석할 수 있습니다.
@@ -313,7 +313,7 @@ UX 설계는 처음 사용하는 사용자도 기능을 쉽게 이해하고 자�
 ## 2. 정보를 카드 UI로 요약해 한눈에 파악가능
 
 <p>
-  <img width=300 alt="sokuri_main_readme" src="https://github.com/user-attachments/assets/ff8ea10d-2299-4681-9200-bf9b56d10f60">
+  <img width=300 alt="sokuri_main_readme" src="https://github.com/user-attachments/assets/c9c1dc35-4418-4d46-8cb9-9352e9382dae">
 </p>
 
 - 분석 결과 또는 입력된 가방 사이즈를 요약 카드 형태로 표시합니다.
@@ -324,10 +324,10 @@ UX 설계는 처음 사용하는 사용자도 기능을 쉽게 이해하고 자�
 ## 3. 제스쳐 기반으로 아이템 변경 및 삭제
 
 <p>
-  <img width="300" src="https://github.com/user-attachments/assets/59fc8531-06d9-4e4b-85c5-e1382d73c418" />
+  <img width="300" src="https://github.com/user-attachments/assets/7f78b4af-201a-4ce0-ab16-21a50dd8ea16" />
 </p>
 
-- 아이템은 ‘이름 / 크기 / 하중’을 입력해 추가합니다.
+- 아이템은 이름과 크기를 입력해 추가합니다.
 - 추가된 아이템은 하단 리스트에 카드 형태로 표시되며, 클릭 시 선택되고 롱탭 시 사이즈를 수정할 수 있습니다.
 - 아이템은 WebView 상 3D 시뮬레이터에서 바로 렌더링되며, 실시간 크기 반영이 이루어집니다.
 - 현재 아이템 목록 중 하나를 스와이프 제스처로 왼쪽으로 드래그하면 '삭제하시겠습니까?'의 확인창 이후 삭제됩니다.
@@ -342,7 +342,7 @@ UX 설계는 처음 사용하는 사용자도 기능을 쉽게 이해하고 자�
 ## 4. 사이즈 수정 후에도 시뮬레이터와 항상 동기화되도록 적용
 
 <p>
-  <img width="300" src="https://github.com/user-attachments/assets/d83412a0-9d96-4cb6-b26c-87e36151fdde" />
+  <img width="300" src="https://github.com/user-attachments/assets/8068d693-7049-4dc9-834e-d1a552d91008" />
 </p>
 
 사용자는 가방이나 아이템의 크기를 언제든지 수정할 수 있어야 하고, 수정된 정보는 시뮬레이터에도 즉시 반영되어야 합니다.
@@ -362,8 +362,8 @@ UX 설계는 처음 사용하는 사용자도 기능을 쉽게 이해하고 자�
 모달이나 사이드 메뉴를 열 때는 슬라이드 애니메이션을 적용해 화면 전환이 자연스럽게 이루어집니다. 갑작스러운 화면 전환은 사용자가 이동 방향을 파악하기 어렵게 만듭니다.
 
 <p>
-  <img width="300" src="https://github.com/user-attachments/assets/aecaf961-d396-4242-829e-54b0b22233cb" />
-  <img width="300" src="https://github.com/user-attachments/assets/0c80dbc5-7946-4f81-a281-25bd5999d81b" />
+  <img width="300" src="https://github.com/user-attachments/assets/e9f359cb-a095-499a-a14d-4fa13e5cd2c2" />
+  <img width="300" src="https://github.com/user-attachments/assets/0cfbff1c-7587-498c-8e27-325426c3a811" />
 </p>
 - 모달이나 사이드 메뉴를 열 때는 슬라이드 애니메이션을 적용해 화면 전환이 자연스럽게 이루어집니다.
 - 갑작스러운 변화 없이 흐름을 이어갈 수 있도록, 이동 방향과 속도를 일관되게 설계했습니다.
