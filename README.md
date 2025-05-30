@@ -1,43 +1,60 @@
-# 🧺 SOKURI
+<div align="center">
 
-**소쿠리(SOKURI)** 는 사용자가 URL만 입력하면 실제 가방 사이즈를 기반으로 물건을 넣어볼 수 있는 **IOS 애플리케이션**입니다.<br>
-실제 가방이 없어도, 모바일 기기에서 다양한 물건을 넣어보며 수납 가능 여부를 직관적으로 확인할 수 있습니다.
+# 🧺 Sokuri
 
+**소쿠리(Sokuri)** 는 사용자가 URL만 입력하면 가방 사이즈를 기반으로 물건을 넣어볼 수 있는 **IOS 애플리케이션**입니다.<br>
+실제 가방이 없어도, 모바일 기기에서 다양한 물건을 넣어보며 수납 가능 여부를 시각적으로 확인할 수 있습니다.
+
+</div>
+
+<br>
+
+<div align="center">
+<a href="https://github.com/sokuri-org/sokuri-ios">iOS Repository</a> |
+<a href="https://github.com/sokuri-org/sokuri-server">Server Repository</a> |
+<a href="https://github.com/sokuri-org/sokuri-crawler">Crawler Repository</a> |
+<a href="https://www.notion.so/SNAP-BUG-1a955d59f1a78023b3c7d081eedf1cee?pvs=4">Project Notion</a>
+</div>
+
+<br>
+<br>
+
+# Table of contents
 <br>
 
 <!-- toc -->
 
 - [Motivation](#motivation)
-  - [온라인 쇼핑에서 겪은 불편함을 개선해보자](#%EC%98%A8%EB%9D%BC%EC%9D%B8-%EC%87%BC%ED%95%91%EC%97%90%EC%84%9C-%EA%B2%AA%EC%9D%80-%EB%B6%88%ED%8E%B8%ED%95%A8%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%B4%EB%B3%B4%EC%9E%90)
-  - [앱 환경에 맞는 사용자 경험을 직접 설계하고 구현하다](#%EC%95%B1-%ED%99%98%EA%B2%BD%EC%97%90-%EB%A7%9E%EB%8A%94-%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B2%BD%ED%97%98%EC%9D%84-%EC%A7%81%EC%A0%91-%EC%84%A4%EA%B3%84%ED%95%98%EA%B3%A0-%EA%B5%AC%ED%98%84%ED%95%98%EB%8B%A4)
+    + [온라인 쇼핑에서 겪은 불편함을 개선해보자](#%EC%98%A8%EB%9D%BC%EC%9D%B8-%EC%87%BC%ED%95%91%EC%97%90%EC%84%9C-%EA%B2%AA%EC%9D%80-%EB%B6%88%ED%8E%B8%ED%95%A8%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%B4%EB%B3%B4%EC%9E%90)
+    + [앱 환경에 맞는 사용자 경험을 직접 설계하고 구현하다](#%EC%95%B1-%ED%99%98%EA%B2%BD%EC%97%90-%EB%A7%9E%EB%8A%94-%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B2%BD%ED%97%98%EC%9D%84-%EC%A7%81%EC%A0%91-%EC%84%A4%EA%B3%84%ED%95%98%EA%B3%A0-%EA%B5%AC%ED%98%84%ED%95%98%EB%8B%A4)
 - [Preview](#preview)
 - [Tech stack](#tech-stack)
-  - [어플리케이션](#%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98)
-  - [서버 및 크롤링](#%EC%84%9C%EB%B2%84-%EB%B0%8F-%ED%81%AC%EB%A1%A4%EB%A7%81)
-  - [머신러닝 및 이미지 분석](#%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-%EB%B0%8F-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%B6%84%EC%84%9D)
+    + [어플리케이션](#%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98)
+    + [서버 및 크롤링](#%EC%84%9C%EB%B2%84-%EB%B0%8F-%ED%81%AC%EB%A1%A4%EB%A7%81)
+    + [머신러닝 및 이미지 분석](#%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-%EB%B0%8F-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%B6%84%EC%84%9D)
 - [Development](#development)
-  - [1. 후기 이미지에서 어떻게 실제 사이즈를 추정할 수 있을까?](#1-%ED%9B%84%EA%B8%B0-%EC%9D%B4%EB%AF%B8%EC%A7%80%EC%97%90%EC%84%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%8B%A4%EC%A0%9C-%EC%82%AC%EC%9D%B4%EC%A6%88%EB%A5%BC-%EC%B6%94%EC%A0%95%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C)
-    - [1.1 후기 이미지를 크롤링하고 분석해 실제 사이즈를 추정](#11-%ED%9B%84%EA%B8%B0-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A5%BC-%ED%81%AC%EB%A1%A4%EB%A7%81%ED%95%98%EA%B3%A0-%EB%B6%84%EC%84%9D%ED%95%B4-%EC%8B%A4%EC%A0%9C-%EC%82%AC%EC%9D%B4%EC%A6%88%EB%A5%BC-%EC%B6%94%EC%A0%95)
-    - [1.2 후기 이미지가 없는 경우 직접 입력하도록 보완](#12-%ED%9B%84%EA%B8%B0-%EC%9D%B4%EB%AF%B8%EC%A7%80%EA%B0%80-%EC%97%86%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EC%A7%81%EC%A0%91-%EC%9E%85%EB%A0%A5%ED%95%98%EB%8F%84%EB%A1%9D-%EB%B3%B4%EC%99%84)
-    - [1.3 매번 사용자가 아이템을 등록해야 할까?](#13-%EB%A7%A4%EB%B2%88-%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B0%80-%EC%95%84%EC%9D%B4%ED%85%9C%EC%9D%84-%EB%93%B1%EB%A1%9D%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C)
-  - [2. React Native에서 3D 시뮬레이션 구현이 가능할까?](#2-react-native%EC%97%90%EC%84%9C-3d-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98-%EA%B5%AC%ED%98%84%EC%9D%B4-%EA%B0%80%EB%8A%A5%ED%95%A0%EA%B9%8C)
-    - [2.1 문제: React Native는 3D 시뮬레이션에 적합하지 않다](#21-%EB%AC%B8%EC%A0%9C-react-native%EB%8A%94-3d-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98%EC%97%90-%EC%A0%81%ED%95%A9%ED%95%98%EC%A7%80-%EC%95%8A%EB%8B%A4)
-    - [2.2 기술 선택 과정: WebView를 선택한 이유](#22-%EA%B8%B0%EC%88%A0-%EC%84%A0%ED%83%9D-%EA%B3%BC%EC%A0%95-webview%EB%A5%BC-%EC%84%A0%ED%83%9D%ED%95%9C-%EC%9D%B4%EC%9C%A0)
+  * [1. 후기 이미지에서 어떻게 실제 사이즈를 추정할 수 있을까?](#1-%ED%9B%84%EA%B8%B0-%EC%9D%B4%EB%AF%B8%EC%A7%80%EC%97%90%EC%84%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%8B%A4%EC%A0%9C-%EC%82%AC%EC%9D%B4%EC%A6%88%EB%A5%BC-%EC%B6%94%EC%A0%95%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C)
+    + [1.1 후기 이미지를 크롤링하고 분석해 실제 사이즈를 추정](#11-%ED%9B%84%EA%B8%B0-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A5%BC-%ED%81%AC%EB%A1%A4%EB%A7%81%ED%95%98%EA%B3%A0-%EB%B6%84%EC%84%9D%ED%95%B4-%EC%8B%A4%EC%A0%9C-%EC%82%AC%EC%9D%B4%EC%A6%88%EB%A5%BC-%EC%B6%94%EC%A0%95)
+    + [1.2 후기 이미지가 없는 경우 사용가 직접 입력하도록 보완](#12-%ED%9B%84%EA%B8%B0-%EC%9D%B4%EB%AF%B8%EC%A7%80%EA%B0%80-%EC%97%86%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EC%82%AC%EC%9A%A9%EA%B0%80-%EC%A7%81%EC%A0%91-%EC%9E%85%EB%A0%A5%ED%95%98%EB%8F%84%EB%A1%9D-%EB%B3%B4%EC%99%84)
+    + [1.3 매번 사용자가 아이템을 등록해야 할까?](#13-%EB%A7%A4%EB%B2%88-%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B0%80-%EC%95%84%EC%9D%B4%ED%85%9C%EC%9D%84-%EB%93%B1%EB%A1%9D%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C)
+  * [2. React Native에서 3D 시뮬레이션 구현이 가능할까?](#2-react-native%EC%97%90%EC%84%9C-3d-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98-%EA%B5%AC%ED%98%84%EC%9D%B4-%EA%B0%80%EB%8A%A5%ED%95%A0%EA%B9%8C)
+    + [2.1 문제: React Native는 3D 시뮬레이션에 적합하지 않다](#21-%EB%AC%B8%EC%A0%9C-react-native%EB%8A%94-3d-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98%EC%97%90-%EC%A0%81%ED%95%A9%ED%95%98%EC%A7%80-%EC%95%8A%EB%8B%A4)
+    + [2.2 기술 선택 과정: WebView를 선택한 이유](#22-%EA%B8%B0%EC%88%A0-%EC%84%A0%ED%83%9D-%EA%B3%BC%EC%A0%95-webview%EB%A5%BC-%EC%84%A0%ED%83%9D%ED%95%9C-%EC%9D%B4%EC%9C%A0)
       - [방법1. React Native 전용 3D 엔진을 사용](#%EB%B0%A9%EB%B2%951-react-native-%EC%A0%84%EC%9A%A9-3d-%EC%97%94%EC%A7%84%EC%9D%84-%EC%82%AC%EC%9A%A9)
       - [방법2. 네이티브 모듈을 직접 구현](#%EB%B0%A9%EB%B2%952-%EB%84%A4%EC%9D%B4%ED%8B%B0%EB%B8%8C-%EB%AA%A8%EB%93%88%EC%9D%84-%EC%A7%81%EC%A0%91-%EA%B5%AC%ED%98%84)
       - [방법3. React Native 안에 WebView를 연결하기](#%EB%B0%A9%EB%B2%953-react-native-%EC%95%88%EC%97%90-webview%EB%A5%BC-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
-    - [2.3 구현: WebView와 React Native 간 양방향 통신 구조](#23-%EA%B5%AC%ED%98%84-webview%EC%99%80-react-native-%EA%B0%84-%EC%96%91%EB%B0%A9%ED%96%A5-%ED%86%B5%EC%8B%A0-%EA%B5%AC%EC%A1%B0)
-    - [2.4 결과: RN 앱에서도 실시간 3D 시뮬레이션이 가능해졌다](#24-%EA%B2%B0%EA%B3%BC-rn-%EC%95%B1%EC%97%90%EC%84%9C%EB%8F%84-%EC%8B%A4%EC%8B%9C%EA%B0%84-3d-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98%EC%9D%B4-%EA%B0%80%EB%8A%A5%ED%95%B4%EC%A1%8C%EB%8B%A4)
+    + [2.3 구현: WebView와 React Native 간 양방향 통신 구조](#23-%EA%B5%AC%ED%98%84-webview%EC%99%80-react-native-%EA%B0%84-%EC%96%91%EB%B0%A9%ED%96%A5-%ED%86%B5%EC%8B%A0-%EA%B5%AC%EC%A1%B0)
+    + [2.4 결과: RN 앱에서도 실시간 3D 시뮬레이션이 가능해졌다](#24-%EA%B2%B0%EA%B3%BC-rn-%EC%95%B1%EC%97%90%EC%84%9C%EB%8F%84-%EC%8B%A4%EC%8B%9C%EA%B0%84-3d-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98%EC%9D%B4-%EA%B0%80%EB%8A%A5%ED%95%B4%EC%A1%8C%EB%8B%A4)
 - [Trouble Shooting](#trouble-shooting)
-  - [1. WebView 내 3D 시뮬레이터가 화면 밖에 렌더링되는 문제](#1-webview-%EB%82%B4-3d-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%ED%84%B0%EA%B0%80-%ED%99%94%EB%A9%B4-%EB%B0%96%EC%97%90-%EB%A0%8C%EB%8D%94%EB%A7%81%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C)
-  - [2. WebView가 메세지에 응답하지 않는 문제](#2-webview%EA%B0%80-%EB%A9%94%EC%84%B8%EC%A7%80%EC%97%90-%EC%9D%91%EB%8B%B5%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C)
+  * [1. WebView 내 3D 시뮬레이터가 화면 밖에 렌더링되는 문제](#1-webview-%EB%82%B4-3d-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%ED%84%B0%EA%B0%80-%ED%99%94%EB%A9%B4-%EB%B0%96%EC%97%90-%EB%A0%8C%EB%8D%94%EB%A7%81%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C)
+  * [2. WebView가 메세지에 응답하지 않는 문제](#2-webview%EA%B0%80-%EB%A9%94%EC%84%B8%EC%A7%80%EC%97%90-%EC%9D%91%EB%8B%B5%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C)
 - [User Experience](#user-experience)
-  - [어떤 기준으로 사용자 흐름을 설계할까?](#%EC%96%B4%EB%96%A4-%EA%B8%B0%EC%A4%80%EC%9C%BC%EB%A1%9C-%EC%82%AC%EC%9A%A9%EC%9E%90-%ED%9D%90%EB%A6%84%EC%9D%84-%EC%84%A4%EA%B3%84%ED%95%A0%EA%B9%8C)
-  - [1. 메인 화면에서 바로 검색 가능하도록 구현](#1-%EB%A9%94%EC%9D%B8-%ED%99%94%EB%A9%B4%EC%97%90%EC%84%9C-%EB%B0%94%EB%A1%9C-%EA%B2%80%EC%83%89-%EA%B0%80%EB%8A%A5%ED%95%98%EB%8F%84%EB%A1%9D-%EA%B5%AC%ED%98%84)
-  - [2. 정보를 카드 UI로 요약해 한눈에 파악가능](#2-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EC%B9%B4%EB%93%9C-ui%EB%A1%9C-%EC%9A%94%EC%95%BD%ED%95%B4-%ED%95%9C%EB%88%88%EC%97%90-%ED%8C%8C%EC%95%85%EA%B0%80%EB%8A%A5)
-  - [3. 제스쳐 기반으로 아이템 변경 및 삭제](#3-%EC%A0%9C%EC%8A%A4%EC%B3%90-%EA%B8%B0%EB%B0%98%EC%9C%BC%EB%A1%9C-%EC%95%84%EC%9D%B4%ED%85%9C-%EB%B3%80%EA%B2%BD-%EB%B0%8F-%EC%82%AD%EC%A0%9C)
-  - [4. 사이즈 수정 후에도 시뮬레이터와 항상 동기화되도록 적용](#4-%EC%82%AC%EC%9D%B4%EC%A6%88-%EC%88%98%EC%A0%95-%ED%9B%84%EC%97%90%EB%8F%84-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%ED%84%B0%EC%99%80-%ED%95%AD%EC%83%81-%EB%8F%99%EA%B8%B0%ED%99%94%EB%90%98%EB%8F%84%EB%A1%9D-%EC%A0%81%EC%9A%A9)
-  - [5. 애니메이션으로 부드러운 화면 전환](#5-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98%EC%9C%BC%EB%A1%9C-%EB%B6%80%EB%93%9C%EB%9F%AC%EC%9A%B4-%ED%99%94%EB%A9%B4-%EC%A0%84%ED%99%98)
+  * [어떤 기준으로 사용자 흐름을 설계할까?](#%EC%96%B4%EB%96%A4-%EA%B8%B0%EC%A4%80%EC%9C%BC%EB%A1%9C-%EC%82%AC%EC%9A%A9%EC%9E%90-%ED%9D%90%EB%A6%84%EC%9D%84-%EC%84%A4%EA%B3%84%ED%95%A0%EA%B9%8C)
+  * [1. 메인 화면에서 바로 검색 가능하도록 구현](#1-%EB%A9%94%EC%9D%B8-%ED%99%94%EB%A9%B4%EC%97%90%EC%84%9C-%EB%B0%94%EB%A1%9C-%EA%B2%80%EC%83%89-%EA%B0%80%EB%8A%A5%ED%95%98%EB%8F%84%EB%A1%9D-%EA%B5%AC%ED%98%84)
+  * [2. 정보를 카드 UI로 요약해 한눈에 파악가능](#2-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EC%B9%B4%EB%93%9C-ui%EB%A1%9C-%EC%9A%94%EC%95%BD%ED%95%B4-%ED%95%9C%EB%88%88%EC%97%90-%ED%8C%8C%EC%95%85%EA%B0%80%EB%8A%A5)
+  * [3. 제스쳐 기반으로 아이템 변경 및 삭제](#3-%EC%A0%9C%EC%8A%A4%EC%B3%90-%EA%B8%B0%EB%B0%98%EC%9C%BC%EB%A1%9C-%EC%95%84%EC%9D%B4%ED%85%9C-%EB%B3%80%EA%B2%BD-%EB%B0%8F-%EC%82%AD%EC%A0%9C)
+  * [4. 사이즈 수정 후에도 시뮬레이터와 항상 동기화되도록 적용](#4-%EC%82%AC%EC%9D%B4%EC%A6%88-%EC%88%98%EC%A0%95-%ED%9B%84%EC%97%90%EB%8F%84-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%ED%84%B0%EC%99%80-%ED%95%AD%EC%83%81-%EB%8F%99%EA%B8%B0%ED%99%94%EB%90%98%EB%8F%84%EB%A1%9D-%EC%A0%81%EC%9A%A9)
+  * [5. 애니메이션으로 부드러운 화면 전환](#5-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98%EC%9C%BC%EB%A1%9C-%EB%B6%80%EB%93%9C%EB%9F%AC%EC%9A%B4-%ED%99%94%EB%A9%B4-%EC%A0%84%ED%99%98)
 - [Retrospective](#retrospective)
 
 <!-- tocstop -->
@@ -48,7 +65,7 @@
 
 ### 온라인 쇼핑에서 겪은 불편함을 개선해보자
 
-기획 과정에서 온라인 쇼핑 중 가방 구매 시 겪었던 불편함이 떠올랐습니다. 대부분의 쇼핑몰은 가방의 가로·세로·높이 수치나 착용 이미지가 제공되지만, 물건들이 들어가는지는 확인하기 어렵습니다. 리뷰를 참고하거나, 직접 구매 후 확인하는 수밖에 없었습니다.
+기획 과정에서 온라인 쇼핑 중 가방 구매 시 겪었던 불편함이 떠올랐습니다. 대부분의 쇼핑몰은 가방의 가로 **·** 세로 **·** 높이 수치나 착용 이미지가 제공되지만, 물건들이 들어가는지는 확인하기 어렵습니다. 리뷰를 참고하거나, 직접 구매 후 확인하는 수밖에 없었습니다.
 
 이러한 불편함을 줄이기 위해, 기능을 직접 개발해보기로 결정했습니다. **사용자가 URL을 입력하면 가방의 실제 사이즈를 추정하고, 다양한 물건을 넣어보는 시뮬레이션 기능**을 통해 수납이 가능한지 확인할 수 있도록 구성했습니다.
 
@@ -102,7 +119,7 @@
 
 ## 1. 후기 이미지에서 어떻게 실제 사이즈를 추정할 수 있을까?
 
-온라인 쇼핑몰에서는 가방의 가로, 세로, 높이 같은 수치 정보만 제공하는 경우가 많아, 실제로 사용하는 물건들이 해당 가방에 들어가는지 판단하기 어렵습니다. 이 문제를 해결하기 위해, 후기 이미지 속 가방과 참조 가능한 물체의 상대 크기를 분석해 실제 가방 사이즈를 추정하고, 이를 기반으로 수납 시뮬레이션을 제공합니다.
+**온라인 쇼핑몰에서는** 가방의 가로 **·** 세로 **·** 높이 같은 수치 정보만 제공하는 경우가 많아, **실제로 사용하는 물건들이 가방에 들어가는지 판단하기 어렵습니다.** 이 문제를 해결하기 위해, 후기 이미지 속 가방과 참조 가능한 물체의 상대 크기를 분석해 실제 가방 사이즈를 추정하고, 이를 기반으로 수납 시뮬레이션을 제공합니다.
 
 이때 **기준 객체**를 활용합니다. 기준 객체는 이미지 속에서 크기가 명확히 알려진 물체로 손, 신용카드, A4 용지, 스마트폰 등이 해당됩니다. 이러한 기준 객체의 실제 크기를 알고 있으면, 사진 속에서 가방과의 픽셀 단위 크기 차이를 비교해 **실제 크기(cm)** 로 환산할 수 있습니다.
 
@@ -121,7 +138,7 @@ YOLOv8을 통해 후기 이미지에서 가방과 기준 객체를 탐지하고,
 
 기준 객체가 함께 있을 경우, 픽셀 단위의 크기를 실측 단위(cm)로 환산할 수 있어 정확한 추정이 가능합니다. 기준 객체가 없다면 카테고리별로 수집된 평균 사이즈 데이터를 기반으로 보정값을 적용합니다.
 
-### 1.2 후기 이미지가 없는 경우 직접 입력하도록 보완
+### 1.2 후기 이미지가 없는 경우 사용가 직접 입력하도록 보완
 
 후기 이미지가 존재하지 않거나, 기준 객체가 함께 찍힌 이미지가 충분하지 않을 경우에는 시뮬레이션을 위한 가방 사이즈 추정이 불가능해지는 문제가 발생합니다.
 
@@ -347,8 +364,7 @@ UX 설계는 처음 사용하는 사용자도 기능을 쉽게 이해하고 자�
 
 사용자는 가방이나 아이템의 크기를 언제든지 수정할 수 있어야 하고, 수정된 정보는 시뮬레이터에도 즉시 반영되어야 합니다.
 
-- 가방 사이즈는 가방 사이즈 탭 하단 크기 변경 버튼을 누르면 사이즈 수정 모달을 호출할 수 있습니디.
-- 아이템 사이즈는 현재 아이템 탭 하단 각 아이템 카드를 약 2초 길게 누르면 사이즈 수정 모달을 호출할 수 있습니다.
+- 각 아이템 카드를 약 2초 길게 누르면 사이즈 수정 모달을 호출할 수 있습니다.
 - 수정된 값은 RN 상태에 저장되며, WebView로 전달되어 3D 모델이 리렌더링됩니다.
 - 동일한 구조는 가방 사이즈 수정에도 적용되며, 전체 packing 영역이 자동으로 리사이징 됩니다.
 
@@ -366,7 +382,6 @@ UX 설계는 처음 사용하는 사용자도 기능을 쉽게 이해하고 자�
   <img width="300" src="https://github.com/user-attachments/assets/e9f359cb-a095-499a-a14d-4fa13e5cd2c2" />
   <img width="300" src="https://github.com/user-attachments/assets/0cfbff1c-7587-498c-8e27-325426c3a811" />
 </p>
-
 - 모달이나 사이드 메뉴를 열 때는 슬라이드 애니메이션을 적용해 화면 전환이 자연스럽게 이루어집니다.
 - 갑작스러운 변화 없이 흐름을 이어갈 수 있도록, 이동 방향과 속도를 일관되게 설계했습니다.
 
