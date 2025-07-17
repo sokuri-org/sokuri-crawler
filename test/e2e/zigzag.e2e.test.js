@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { crawlZigzagReviewImages } from "../../src/crawlers/zigzag.js";
+import { crawlZigzagReviewImages } from "../../src/crawlers/zigzag.crawler.js";
 
 describe("지그재그 리뷰 이미지 크롤링 E2E 테스트", () => {
   const WAIT_TIME = 30000;

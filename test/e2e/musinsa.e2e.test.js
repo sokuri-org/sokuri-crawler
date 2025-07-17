@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { crawlMusinsaReviewImages } from "../../src/crawlers/musinsa.js";
+import { crawlMusinsaReviewImages } from "../../src/crawlers/musinsa.crawler.js";
 
 describe("무신사 리뷰 이미지 크롤링 E2E 테스트", () => {
   const WAIT_TIME = 30000;
