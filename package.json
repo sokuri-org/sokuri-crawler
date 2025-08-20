@@ -7,7 +7,12 @@
     "format": "prettier --cache --write .",
     "lint": "eslint .",
     "test": "vitest",
-    "start": "node src/main.js"
+    "start": "node dist/apps/review-crawler-app.js",
+    "dev": "tsx src/apps/review-crawler-app.ts",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
   },
   "type": "module",
   "author": "",
@@ -28,9 +33,17 @@
     "puppeteer": "^24.6.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.0",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
     "eslint-config-standard": "^17.1.0",
     "husky": "^8.0.0",
     "prettier": "3.5.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.5",
     "vitest": "^3.1.1"
   }
 }
