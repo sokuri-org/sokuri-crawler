@@ -1,5 +1,17 @@
-node_modules
+# Node
+node_modules/
+npm-debug.log*
 data/
 images/
+
+# Env
 .env
+
+# OS
 .DS_Store
+
+# TypeScript
+dist/
+build/
+*.tsbuildinfo
+
