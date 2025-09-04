@@ -1,4 +1,9 @@
-const CATEGORY_KEYWORDS = [
+interface CategoryKeyword {
+  category: string;
+  keywords: string[];
+}
+
+const CATEGORY_KEYWORDS: CategoryKeyword[] = [
   { category: "토트백", keywords: ["토트백", "토트", "tote"] },
   { category: "크로스백", keywords: ["크로스백", "크로스", "cross"] },
   { category: "백팩", keywords: ["백팩", "backpack"] },
@@ -7,7 +12,7 @@ const CATEGORY_KEYWORDS = [
   { category: "쇼퍼백", keywords: ["쇼퍼백", "쇼퍼", "shopper"] },
 ];
 
-export function guessCategoryFromTitle(title) {
+export function guessCategoryFromTitle(title: string): string {
   const lowerTitle = title.toLowerCase();
 
   for (const { category, keywords } of CATEGORY_KEYWORDS) {
